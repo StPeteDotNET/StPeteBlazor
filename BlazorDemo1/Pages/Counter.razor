@@ -1,0 +1,28 @@
+﻿@page "/counter"
+@implements IDisposable
+
+<h1>Counter</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+@code {
+
+    [Parameter]
+    public int CurrentCount { get; set; } = 0;
+
+    [Parameter]
+    public EventCallback<int> ButtonWasClicked { get; set; }
+
+    private async Task IncrementCount()
+    {
+        CurrentCount++;
+        await ButtonWasClicked.InvokeAsync(CurrentCount);
+    }
+
+    public void Dispose()
+    {
+
+    }
+}
